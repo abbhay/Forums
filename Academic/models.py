@@ -1,0 +1,42 @@
+from datetime import datetime
+
+from django.db import models
+
+from utils.utils import return_category
+# Create your models here.
+
+class Xueshu(models.Model):
+    title = models.CharField(max_length=50,verbose_name='标题',)
+    desc = models.CharField(max_length=200,verbose_name='描述')
+    url = models.URLField(verbose_name='官网的展示网页')
+    category  = models.CharField(choices=return_category(),max_length=2,verbose_name='种类')
+    learn_time = models.IntegerField(default=150,verbose_name='举办时长/分钟')
+    hold_place = models.CharField(default='绵阳学术报告厅',verbose_name='举办地点',max_length=50)
+    student = models.IntegerField(default=0,verbose_name='报名人数')#优先显示好友位
+    fore_sign = models.IntegerField(default=0,verbose_name="预报名")
+    click_num = models.IntegerField(default=0,verbose_name="点击数")
+    image = models.ImageField(upload_to="xueshu/%Y/%m", default=u"image/default.png", max_length=100)
+    add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = u'学术信息'
+        verbose_name_plural = verbose_name
+
+class Vedio(models.Model):
+    Xueshu = models.ForeignKey(Xueshu,verbose_name='学术报告')
+    name = models.CharField(max_length=20,verbose_name='名称')
+    add_time = models.DateField(default=datetime.now,verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = u'直播回放视频'
+        verbose_name_plural = verbose_name
+
+class Resource(models.Model):
+    Xueshu = models.ForeignKey(Xueshu, verbose_name='学术报告')
+    name = models.CharField(max_length=20, verbose_name='名称')
+    download = models.FileField(upload_to='Xueshu/%Y/%m',verbose_name="资源文件",max_length=200)
+    add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = u'学术资源'
+        verbose_name_plural = verbose_name

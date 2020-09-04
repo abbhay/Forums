@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class UserProfile(AbstractUser):
     xuehao = models.CharField(max_length=8,verbose_name=u'学号',unique=True)
-    gender = models.CharField(choices=(('male',u"男"),('female',u"女")),max_length=2,verbose_name=u'性别')
+    gender = models.CharField(choices=(('male',u"男"),('female',u"女")),max_length=8,verbose_name=u'性别')
     bithday = models.DateField(verbose_name=u'生日',null=True,blank=True)
     mobile = models.CharField(max_length=11,verbose_name=u'手机号',null=True,blank=True)
     classes = models.CharField(max_length=6,verbose_name=u"班级")

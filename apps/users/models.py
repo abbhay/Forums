@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class UserProfile(AbstractUser):
-    xuehao = models.CharField(max_length=8,verbose_name=u'学号',unique=True)
+    xuehao = models.CharField(max_length=8,verbose_name=u'学号')
     gender = models.CharField(choices=(('male',u"男"),('female',u"女")),max_length=8,verbose_name=u'性别')
     bithday = models.DateField(verbose_name=u'生日',null=True,blank=True)
     mobile = models.CharField(max_length=11,verbose_name=u'手机号',null=True,blank=True)
@@ -31,11 +31,14 @@ class EmailVerfiy(models.Model):
     code = models.CharField(max_length=20,verbose_name='验证码')
     email = models.CharField(max_length=50,verbose_name='邮箱地址')
     send_type = models.CharField(choices=(('register','注册'),('forget','找回密码')),max_length=10)
-    send_time = models.DateField(default=datetime.now,verbose_name='发送时间')
+    send_time = models.DateTimeField(default=datetime.now,verbose_name='发送时间')
 
     class Meta:
         verbose_name = u'邮箱信息'
         verbose_name_plural =  verbose_name
+
+    def __str__(self):
+        return "{}({})".format(self.code,self.email)
 
 class Banner(models.Model):
     title = models.CharField(max_length=50,verbose_name='标题')

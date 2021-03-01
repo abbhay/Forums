@@ -21,15 +21,20 @@ class Xueshu(models.Model):
     class Meta:
         verbose_name = u'学术信息'
         verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.title
 
 class Vedio(models.Model):
     Xueshu = models.ForeignKey(Xueshu,verbose_name='学术报告',on_delete=models.CASCADE)
     name = models.CharField(max_length=20,verbose_name='名称')
+    url = models.URLField(verbose_name='直播地址',default='www.tfswufe.edu.cn')
     add_time = models.DateField(default=datetime.now,verbose_name='添加时间')
 
     class Meta:
         verbose_name = u'直播回放视频'
         verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.name
 
 class Resource(models.Model):
     Xueshu = models.ForeignKey(Xueshu, verbose_name='学术报告',on_delete=models.CASCADE)
@@ -40,3 +45,5 @@ class Resource(models.Model):
     class Meta:
         verbose_name = u'学术资源'
         verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.name

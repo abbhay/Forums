@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     # 为模型通过版本控制，可以回滚数据
     'reversion',
+    'captcha',
 
 ]
 AUTH_USER_MODEL ='users.UserProfile' #重载 userprofile
@@ -131,4 +132,16 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS =(os.path.join(BASE_DIR,'static'),)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+AUTHENTICATION_BACKENDS =(
+    'users.views.CustomBackend',
+)
+EMAIL_HOST = "smtp.qq.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "1452245133@qq.com"
+EMAIL_HOST_PASSWORD = "tbulgmlnavsyhhaa"
+EMAIL_USE_TLS= False
+
+EMAIL_FROM = "1452245133@qq.com"

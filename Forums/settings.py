@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     # 为模型通过版本控制，可以回滚数据
     'reversion',
+    'pure_pagination',
     'captcha',
+
+
 
 ]
 AUTH_USER_MODEL ='users.UserProfile' #重载 userprofile
@@ -73,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
             ],
         },
     },
@@ -145,3 +149,6 @@ EMAIL_HOST_PASSWORD = "tbulgmlnavsyhhaa"
 EMAIL_USE_TLS= False
 
 EMAIL_FROM = "1452245133@qq.com"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

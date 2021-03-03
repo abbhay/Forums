@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
-from users.views import LoginView,RegisterView,AciveUserView
+from users.views import LoginView,RegisterView,AciveUserView,ForgetPwdView,ResetView,ModifyPwdView
+from Organization.views import OrgView
 import xadmin
+from django.views.static import serve
+from Forums.settings import MEDIA_ROOT
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url('^$', TemplateView.as_view(template_name='index.html'),name="index"),
@@ -25,7 +28,14 @@ urlpatterns = [
     url('^register/$', RegisterView.as_view(),name="register"),
     url('^captcha/',include('captcha.urls')),
     url(r'^active/(?P<active_code>.*)/$', AciveUserView.as_view(), name="user_active"),
-    # url(r'^forget/$', ForgetPwdView.as_view(), name="forget_pwd"),
-    # url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
-    # url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
+    url(r'^forget/$', ForgetPwdView.as_view(), name="forget_pwd"),
+    url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
+    url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
+#配置上传文件的访问处理函数
+    url(r'^media/(?P<path>.*)$',  serve, {"document_root":MEDIA_ROOT}),
+
+    # 课程机构url配置
+    url(r'^org/', include('Organization.urls',namespace='org')),
+
+
 ]

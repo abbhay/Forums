@@ -21,10 +21,12 @@ class XueshuOrg(models.Model):
     org_category = models.ForeignKey(category_org,verbose_name='机构/大学学校类别',on_delete=models.CASCADE)
     org_name = models.CharField(max_length=50,verbose_name='机构/大学学校名字')
     org_desc = models.CharField(max_length=200,verbose_name='机构/大学学校描述')
+    url = models.URLField(verbose_name="机构/大学学校网址",default="www.baidu.com")
     org_address = models.CharField(max_length=100,verbose_name='机构/大学学校位置')
     org_image = models.ImageField(upload_to='org/%Y/%m',verbose_name='机构/大学学校logo',max_length=100)
     click_nums = models.IntegerField(default=0,verbose_name='点击数')
     fav_nums = models.IntegerField(default=0,verbose_name='收藏数')
+    students = models.IntegerField(default=0,verbose_name='学习人数')
     add_time = models.DateField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:

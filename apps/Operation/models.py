@@ -51,10 +51,10 @@ class UserXueshu(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name='发送时间')
 
     class Meta:
-        verbose_name = '用户消息'
+        verbose_name = '用户学术'
         verbose_name_plural = verbose_name
     def __str__(self):
-        return self.user
+        return self.user.username
 
 class UserBaoming(models.Model):
     name = models.CharField(max_length=20,verbose_name='姓名')

@@ -1,11 +1,12 @@
 from datetime import datetime
 
 from django.db import models
-
+from Organization.models import XueshuOrg
 from utils.utils import return_category
 # Create your models here.
 
 class Xueshu(models.Model):
+    xueshu_orgs = models.ForeignKey(XueshuOrg, verbose_name='学术机构',default='', on_delete=models.CASCADE)
     title = models.CharField(max_length=50,verbose_name='标题',)
     desc = models.CharField(max_length=200,verbose_name='描述')
     url = models.URLField(verbose_name='官网的展示网页')
@@ -23,6 +24,11 @@ class Xueshu(models.Model):
         verbose_name_plural = verbose_name
     def __str__(self):
         return self.title
+
+    def get_users(self):
+        return self.userxueshu_set.all()[:3]
+    def get_vedio(self):
+        return self.vedio_set.all()
 
 class Vedio(models.Model):
     Xueshu = models.ForeignKey(Xueshu,verbose_name='学术报告',on_delete=models.CASCADE)

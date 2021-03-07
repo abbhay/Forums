@@ -35,6 +35,8 @@ class XueshuOrg(models.Model):
 
     def __str__(self):
         return self.org_name
+    def get_teacher_num(self):
+        return self.reporters_set.all().count()
 
 
 class reporters(models.Model):
